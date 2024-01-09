@@ -9,7 +9,7 @@ FROM golang:1.19.2-alpine3.16 as builder
 COPY --from=modules /go/pkg /go/pkg
 COPY . /app
 WORKDIR /app
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+RUN CGO_ENABLED=0 GOOS=linux \
     go build -tags migrate -o /bin/app ./cmd/kitchen
 
 # Step 3: Final
@@ -18,5 +18,5 @@ FROM scratch
 # GOPATH for scratch images is /
 COPY --from=builder /app/cmd/kitchen/config.yml /
 COPY --from=builder /app/db/migrations /db/migrations
-COPY --from=builder /bin/app /app
-CMD ["/app"]
+COPY --from=builder /bin/app /coffee-kitchen
+CMD ["/coffee-kitchen"]

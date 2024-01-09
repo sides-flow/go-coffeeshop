@@ -1,3 +1,11 @@
+# Sides Coffeeshop
+1. Make sure port 5432 is available (and all the other ports: 5672, 15672, 5000, 5001, 5002, 8888):
+   * `sudo lsof -i :5432`
+2. Run: `docker-compose up -d`
+3. In order to use the webgui, Use: http://localhost:8888
+   * Also, your browser needs to be able to access port 5000 (for the API)
+   * To forward port: `socat TCP-LISTEN:2345,fork,reuseaddr TCP:localhost:8888` (LISTEN=host's, 8888=guest)
+
 # go-coffeeshop
 
 An event-driven microservices coffee shop application has been written in Golang and deployed using Nomad, Consul Connect, Vault, and Terraform.
